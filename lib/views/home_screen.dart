@@ -21,7 +21,8 @@ class _HomePageState extends State<HomePage> {
       ),
       body: FutureBuilder(
         future: Future.wait(
-            [dataController.getEmployees(), dataController.getProducts()]),
+          [dataController.getEmployees(), dataController.getProducts()],
+        ),
         builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -34,51 +35,75 @@ class _HomePageState extends State<HomePage> {
               children: [
                 const Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text('Employees:',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'Employees:',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-                ...employees.map((employee) => Card(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Name: ${employee.name}',
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold)),
-                            Text('Position: ${employee.position}'),
-                            Text('Age: ${employee.age}'),
-                            Text('Skills: ${employee.skills.join(', ')}'),
-                          ],
-                        ),
+                ...employees.map(
+                  (employee) => Card(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Name: ${employee.name}',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text('Position: ${employee.position}'),
+                          Text('Age: ${employee.age}'),
+                          Text('Skills: ${employee.skills.join(', ')}'),
+                        ],
                       ),
-                    )),
+                    ),
+                  ),
+                ),
                 const Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text('Products:',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'Products:',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-                ...products.map((product) => Card(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Product Name: ${product.name}',
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold)),
-                            Text('Price: \$${product.price}'),
-                            Text('In Stock: ${product.inStock ? 'Yes' : 'No'}'),
-                          ],
-                        ),
+                ...products.map(
+                  (product) => Card(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Product Name: ${product.name}',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text('Price: \$${product.price}'),
+                          Text('In Stock: ${product.inStock ? 'Yes' : 'No'}'),
+                        ],
                       ),
-                    )),
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
@@ -120,19 +145,24 @@ class _HomePageState extends State<HomePage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                  controller: nameController,
-                  decoration: const InputDecoration(labelText: 'Name')),
+                controller: nameController,
+                decoration: const InputDecoration(labelText: 'Name'),
+              ),
               TextField(
-                  controller: ageController,
-                  decoration: const InputDecoration(labelText: 'Age'),
-                  keyboardType: TextInputType.number),
+                controller: ageController,
+                decoration: const InputDecoration(labelText: 'Age'),
+                keyboardType: TextInputType.number,
+              ),
               TextField(
-                  controller: positionController,
-                  decoration: const InputDecoration(labelText: 'Position')),
+                controller: positionController,
+                decoration: const InputDecoration(labelText: 'Position'),
+              ),
               TextField(
-                  controller: skillsController,
-                  decoration: const InputDecoration(
-                      labelText: 'Skills (comma separated)')),
+                controller: skillsController,
+                decoration: const InputDecoration(
+                  labelText: 'Skills (comma separated)',
+                ),
+              ),
             ],
           ),
           actions: [
@@ -152,7 +182,11 @@ class _HomePageState extends State<HomePage> {
                     .map((s) => s.trim())
                     .toList();
                 final employee = Employee(
-                    name: name, age: age, position: position, skills: skills);
+                  name: name,
+                  age: age,
+                  position: position,
+                  skills: skills,
+                );
                 dataController.addEmployee(employee).then((_) {
                   setState(() {});
                   Navigator.of(context).pop();
@@ -182,13 +216,15 @@ class _HomePageState extends State<HomePage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextField(
-                      controller: nameController,
-                      decoration:
-                          const InputDecoration(labelText: 'Product Name')),
+                    controller: nameController,
+                    decoration:
+                        const InputDecoration(labelText: 'Product Name'),
+                  ),
                   TextField(
-                      controller: priceController,
-                      decoration: const InputDecoration(labelText: 'Price'),
-                      keyboardType: TextInputType.number),
+                    controller: priceController,
+                    decoration: const InputDecoration(labelText: 'Price'),
+                    keyboardType: TextInputType.number,
+                  ),
                   Row(
                     children: [
                       const Text('In Stock'),
@@ -215,8 +251,11 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     final name = nameController.text;
                     final price = double.tryParse(priceController.text) ?? 0.0;
-                    final product =
-                        Product(name: name, price: price, inStock: inStock);
+                    final product = Product(
+                      name: name,
+                      price: price,
+                      inStock: inStock,
+                    );
                     dataController.addProduct(product).then((_) {
                       setState(() {});
                       Navigator.of(context).pop();

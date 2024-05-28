@@ -3,7 +3,11 @@ class Product {
   final double price;
   final bool inStock;
 
-  Product({required this.name, required this.price, required this.inStock});
+  Product({
+    required this.name,
+    required this.price,
+    required this.inStock,
+  });
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(

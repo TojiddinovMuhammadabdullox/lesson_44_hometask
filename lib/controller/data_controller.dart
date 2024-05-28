@@ -69,4 +69,18 @@ class DataController {
     _data['products'] = productsJson;
     await saveData(_data);
   }
+
+  Future<void> deleteEmployee(String name) async {
+    List<dynamic> employeesJson = _data['employees'];
+    employeesJson.removeWhere((employee) => employee['name'] == name);
+    _data['employees'] = employeesJson;
+    await saveData(_data);
+  }
+
+  Future<void> deleteProduct(String name) async {
+    List<dynamic> productsJson = _data['products'];
+    productsJson.removeWhere((product) => product['name'] == name);
+    _data['products'] = productsJson;
+    await saveData(_data);
+  }
 }
